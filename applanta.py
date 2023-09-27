@@ -10,8 +10,9 @@ from PyQt5.QtWidgets import QApplication, QLabel, QVBoxLayout, QPushButton, QFil
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 
-# Ruta relativa a la carpeta de imágenes 
-images_path = '/Users/Mosk/Pictures/proyecto/'
+# Ruta relativa a la carpeta de imágenes
+image_absolute = os.path.abspath('F:/Universidad/ProyectoDeepleaves/Imagenes/Borojo')  
+images_path = image_absolute
 
 # Función para cargar, redimensionar y preprocesar una nueva imagen
 def cargar_y_preprocesar_imagen(ruta_imagen):
@@ -51,8 +52,10 @@ def calcular_similitud(ruta_imagen):
 #BestModel2.h5
 #model50.h5
 #Modelbest_model.h5
-modelo = load_model('/Users/Mosk/Documents/Pplantas/Modelos/BestModel2.h5')
-clases_encoder = np.load('/Users/Mosk/Documents/Pplantas/encoder_classes.npy')
+ruta_absoluta = os.path.abspath('F:/Universidad/ProyectoDeepleaves/ModeloML/modelOG0.h5')
+modelo = load_model(ruta_absoluta)
+#modelo = load_model('F:/Universidad/ProyectoDeepleaves/NewModel/modelOG0.h5')
+clases_encoder = np.load('F:/Universidad/FlaskIntro/FlaskDeepLeaves/encoder_classes.npy')
 encoder = LabelEncoder()
 encoder.classes_ = clases_encoder
 
@@ -76,6 +79,18 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+@app.route('/infoPl')
+def infoPl():
+    return render_template('infoPl.html')
+
+@app.route('/red')
+def redNeur():
+    return render_template('red.html')
 
 @app.route('/predict', methods=['POST'])
 def predict_hojas():

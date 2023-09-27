@@ -4,78 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Predicción de Hojas - DeepLeaves</title>
-    <style>
-        body {
-            font-family: "Times New Roman", serif;
-            text-align: center;
-            background: linear-gradient(to bottom, #DAA520, #8B4513);
-            
-            background-size: cover;
-            background-repeat: no-repeat;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: left; /* Alinea el título a la izquierda */
-            padding-left: 20px; /* Agrega un espacio a la izquierda */
-        }
-        #container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        #image-container {
-            margin-top: 20px;
-        }
-        #result-container {
-            margin-top: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-        }
-        #hojas-image {
-            max-width: 300px;
-            max-height: 300px;
-            margin: 0 auto;
-            display: block;
-        }
-        #hojas-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007bff;
-            margin-top: 10px;
-        }
-        #similar-hojas {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-        input[type="file"] {
-            display: none;
-        }
-        label {
-            display: block;
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        label:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename = 'css/style.css' ) }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
-    <div class="navbar">DeepLeaves</div>
+    
+    {% include 'navbar.html' %}
     <div id="container">
         <h1>Predicción de Hojas 🔮</h1>
         <div id="image-container">
@@ -89,40 +24,6 @@
         </div>
     </div>
 
-    <script>
-        function realizarPrediccion() {
-            var imagenInput = document.getElementById('imagen_prediccion');
-            var imagenSeleccionada = imagenInput.files[0];
-
-            if (imagenSeleccionada) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var imagenMostrada = document.getElementById('hojas-image');
-                    imagenMostrada.src = e.target.result;
-                };
-                reader.readAsDataURL(imagenSeleccionada);
-
-                var formData = new FormData();
-                formData.append('imagen_prediccion', imagenSeleccionada);
-
-                fetch('/predict', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('hojas-name').textContent = 'Especie de Hoja: ' + data.nombre_hojas;
-                    document.getElementById('similar-hojas').textContent = 'Especies similares: ' + data.hojas_similares.join(', ');
-                })
-                .catch(error => console.error('Error:', error));
-            } else {
-                alert('Selecciona una imagen válida.');
-            }
-        }
-        
-        // Asociar la función realizarPrediccion al cambio de input de archivo
-        var imagenInput = document.getElementById('imagen_prediccion');
-        imagenInput.addEventListener('change', realizarPrediccion);
-    </script>
+    <script type="text/javascript" src="{{url_for ('static', filename = 'script/script.js' ) }}"></script>
 </body>
 </html>
