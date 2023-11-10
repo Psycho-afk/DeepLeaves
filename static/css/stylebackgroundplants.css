@@ -1,0 +1,7 @@
+.background-plants{
+    background-image: url('/static/images/imagen_web_red.jpg'), url('/static/images/plant_red.jpg');
+    background-position: right bottom,left bottom;
+    background-repeat: no-repeat;
+    background-size: auto;
+    min-height: 100vh;
+  }
