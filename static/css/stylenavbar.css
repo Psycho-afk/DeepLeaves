@@ -1,0 +1,18 @@
+/* Estilo de la barra de navegación */
+.navbar {
+    background-color: #3a9e3a; /* Color de fondo */
+    z-index: 1;
+  }
+  
+  .navbar-brand {
+    color: #fff; /* Color del texto del logotipo */
+  }
+  
+  .navbar-nav .nav-link {
+    color: #fff; /* Color de los enlaces en la barra de navegación */
+  }
+  
+  .navbar-toggler-icon {
+    background-color: #fff; /* Color del ícono del botón de menú desplegable */
+  }
+  
