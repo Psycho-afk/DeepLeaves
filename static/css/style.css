@@ -1,22 +1,11 @@
 body {
     font-family: "Times New Roman", serif;
     text-align: center;
-    background: linear-gradient(to bottom, #DAA520, #8B4513);
-    
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: #d4f3ac;
     margin: 0;
     padding: 0;
 }
-.navbar {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: left; /* Alinea el título a la izquierda */
-    padding-left: 20px; /* Agrega un espacio a la izquierda */
-}
+
 #container {
     display: flex;
     flex-direction: column;
@@ -29,7 +18,7 @@ body {
 }
 #result-container {
     margin-top: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    /*background-color: rgba(255, 255, 255, 0.807);*/
     padding: 20px;
     border-radius: 10px;
 }
