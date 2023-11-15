@@ -11,7 +11,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 
 # Ruta relativa a la carpeta de imágenes
-image_absolute = os.path.abspath('F:/Universidad/ProyectoDeepleaves/Imagenes/Borojo')  
+image_absolute = os.path.abspath('F:/Universidad/ProyectoDeepleaves/NewImagenes')  
 images_path = image_absolute
 
 # Función para cargar, redimensionar y preprocesar una nueva imagen
@@ -76,7 +76,7 @@ X_data_flatten = np.array(X_data).reshape(len(X_data), 28 * 28 * 3).astype('floa
 # Crear la aplicación Flask
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/index')
 def index():
     return render_template('index.html')
 
@@ -87,6 +87,10 @@ def home():
 @app.route('/infoPl')
 def infoPl():
     return render_template('infoPl.html')
+
+@app.route('/')
+def about():
+    return render_template('/about.html')
 
 @app.route('/red')
 def redNeur():
