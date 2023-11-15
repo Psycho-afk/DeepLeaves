@@ -1,7 +1,7 @@
 import os
 import cv2
 import numpy as np
-from flask import Flask, render_template, request, jsonify
+from flask import Flask,url_for, render_template, request, jsonify, send_from_directory
 from keras.models import load_model
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import LabelEncoder
@@ -75,6 +75,12 @@ X_data_flatten = np.array(X_data).reshape(len(X_data), 28 * 28 * 3).astype('floa
 
 # Crear la aplicación Flask
 app = Flask(__name__)
+
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(app.static_folder, 'icons/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/index')
 def index():
