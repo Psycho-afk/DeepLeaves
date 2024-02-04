@@ -20,6 +20,11 @@
     margin-bottom: 10px; /* Agrega espacio entre los recuadros con borde */
   }
 
+.accordion-body{
+    text-align: justify;
+  }  
+
+
 
 /* Personaliza el tamaño de las imágenes en el carrusel */
 .carousel-inner img {
@@ -48,15 +53,10 @@ body {
     background-color: #b8e1a0; 
 }
 
-/* Estilos para los botones de control del carrusel */
-.carousel-control-prev,
-.carousel-control-next {
-  background-color: #343131;
-  /* Otros estilos personalizados, si es necesario */
-}
 
   .carousel-control-prev-icon,
   .carousel-control-next-icon {
     color: #343131;
   }
+
 
