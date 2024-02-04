@@ -2,10 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision.models import resnet50
-from torchvision import transforms
+from torchvision.transforms import v2 as transforms
 from PIL import Image
 import numpy as np
-import cv2
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 
@@ -31,10 +30,10 @@ print("Antes del modelo")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # carga del modelo de pytroch resnet50
-modelo = resnet50(pretrained=False)
+modelo = resnet50(weights=None)
 num_ftrs = modelo.fc.in_features
 modelo.fc = nn.Linear(num_ftrs, 5) # ajustar el numero de clases si es necesario con el conjunto de datos
-modelo_resnet50 ='F:/Universidad/ProyectoDeepleaves/ModeloPytorch/resnet50.pth' # modelo del 22/01/2024
+modelo_resnet50 ='./Modelos/resnet50.pth' # modelo del 22/01/2024
 modelo.load_state_dict(torch.load(modelo_resnet50,map_location=torch.device('cpu')))
 modelo = modelo.to(device)
 modelo.eval()
@@ -44,8 +43,9 @@ class_names = ['Borojo', 'Carambolo', 'Guanabano', 'Naranjo común', 'Palma de y
 
 # Transformaciones para las imágenes
 transform = transforms.Compose([
+    transforms.ToImage(),
     transforms.Resize((224, 224)),
-    transforms.ToTensor(),
+    transforms.ToDtype(torch.float32, scale=True),
     transforms.Lambda(lambda x: x[:3, :, :]),  # Eliminar el canal alfa (si existe)
 ])
 
@@ -120,7 +120,7 @@ def predict_hojas(image_path):
         print(f"Features type: {type(target_features)}")
 
         # Resto del código de predicción...
-        img = transform(img)
+        img = transform(img).to(device)
         img = img.unsqueeze(0)
 
         with torch.no_grad():
@@ -142,8 +142,8 @@ def extract_features(img):
         if isinstance(img, str):  # Si es una ruta de archivo, abre la imagen
             img = Image.open(img).convert("RGB")
         
-        img = transform(img)
-        img = img.unsqueeze(0)
+        img = transform(img).to(device)
+        img = img.unsqueeze(0).to(device)
 
         with torch.no_grad():
             features = modelo(img)
@@ -153,7 +153,7 @@ def extract_features(img):
         if features.shape != (1, 5):
             raise ValueError(f"Dimensiones inesperadas de las características: {features.shape}")
 
-        return features.numpy()  # Devuelve las características como un arreglo numpy
+        return features.cpu().numpy()  # Devuelve las características como un arreglo numpy
 
     except Exception as e:
         print(f"Error al abrir o procesar la imagen: {str(e)}")
