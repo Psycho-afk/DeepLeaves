@@ -1,11 +1,6 @@
 import threading
 from flask import Flask, request, jsonify, render_template,send_from_directory 
 from PIL import Image  
-import torch  
-import torch.nn as nn
-import torchvision.transforms as transforms
-from torchvision import transforms
-from torchvision.models import resnet50
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import os
@@ -14,22 +9,9 @@ import base64
 from newControl import predict_hojas, get_similar_leaves,extract_features,class_names
 
 
-#-----------------------------------------------------------------------------------------
 
-
-
-# encoder de las clases
-clases_encoder = np.load('F:/Universidad/FlaskIntro/FlaskDeepLeaves/encoder_classes.npy')
-encoder = LabelEncoder()
-encoder.classes_ = clases_encoder
-
-
-#-----------------------------------------------------------------------------------------
-
-#-----------------------------------------------------------------------------------------
 # aplicacion flask
 app = Flask(__name__, static_folder='static', static_url_path='/static')
-
 
 
 @app.route("/favicon.ico")
