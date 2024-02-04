@@ -1,0 +1,16 @@
+.background-plants{
+    background-image: url('/static/imagesWeb/imagen_web_red.jpg'), url('/static/imagesWeb/plant_red.jpg');
+    background-position: right bottom,left bottom;
+    background-repeat: no-repeat;
+    background-size: auto;
+    min-height: 100vh;
+  }
+
+  @media (max-width: 767px) {
+    /* Aplicar estilos diferentes para pantallas pequeñas (menos de 767px de ancho) */
+    .background-plants {
+        background-size: cover;  /* Ajustar el tamaño del fondo para cubrir el contenedor */
+        background-position: center;  /* Centrar el fondo */
+    }
+}
+

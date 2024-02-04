@@ -1,17 +1,28 @@
 import os
 import cv2
 import numpy as np
-from flask import Flask, render_template, request, jsonify
+from flask import Flask,url_for, render_template, request, jsonify, send_from_directory
 from keras.models import load_model
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import LabelEncoder
 import json
+import base64
+import torch
+import torch
+import torch.nn as nn
+
+# archivo donde estan las clases del modelo pytorch
+#from modelo import MobileNetV2
+
 from PyQt5.QtWidgets import QApplication, QLabel, QVBoxLayout, QPushButton, QFileDialog, QWidget
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 
-# Ruta relativa a la carpeta de imágenes 
-images_path = '/Users/Mosk/Pictures/proyecto/'
+# Ruta relativa a la carpeta de imágenes
+image_absolute = os.path.abspath('F:/Universidad/ProyectoDeepleaves/NewImagenes')  
+images_path = image_absolute
+
+
 
 # Función para cargar, redimensionar y preprocesar una nueva imagen
 def cargar_y_preprocesar_imagen(ruta_imagen):
@@ -47,12 +58,27 @@ def calcular_similitud(ruta_imagen):
     else:
         return None
 
-# Cargar el modelo previamente entrenado
+# Cargar el modelo previamente entrenado con terminacion .h5
 #BestModel2.h5
 #model50.h5
 #Modelbest_model.h5
-modelo = load_model('/Users/Mosk/Documents/Pplantas/Modelos/BestModel2.h5')
-clases_encoder = np.load('/Users/Mosk/Documents/Pplantas/encoder_classes.npy')
+ruta_absoluta = os.path.abspath('F:/Universidad/ProyectoDeepleaves/ModeloML/modelOG0.h5')
+modelo = load_model(ruta_absoluta)
+
+# cargar el modelo con el uso de pytorch
+
+# ruta_absoluta = 'F:/Universidad/ProyectoDeepleaves/ModeloPytorch/modelo_entrenado_mobilenetv2.pth'
+#     # Cargar el modelo
+# modelo = torch.load(ruta_absoluta,map_location=torch.device('cpu'))
+# modelo = modelo.to(device)
+# modelo.eval()
+    # Asegurar de que el modelo esté en modo de evaluación
+    
+
+
+
+#modelo = load_model('F:/Universidad/ProyectoDeepleaves/NewModel/modelOG0.h5')
+clases_encoder = np.load('F:/Universidad/FlaskIntro/FlaskDeepLeaves/encoder_classes.npy')
 encoder = LabelEncoder()
 encoder.classes_ = clases_encoder
 
@@ -70,12 +96,65 @@ for filename in os.listdir(images_path):
 
 X_data_flatten = np.array(X_data).reshape(len(X_data), 28 * 28 * 3).astype('float32') / 255.0
 
+#---------------------------------------------------
 # Crear la aplicación Flask
 app = Flask(__name__)
 
-@app.route('/')
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(app.static_folder, 'icons/favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+@app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+@app.route('/infoPl')
+def infoPl():
+    return render_template('infoPl.html')
+
+@app.route('/')
+def about():
+    return render_template('/about.html')
+
+@app.route('/red')
+def redNeur():
+    return render_template('red.html')
+
+@app.route('/capturar_foto', methods=['POST'])
+def capturar_foto():
+    data = request.get_json()
+    if 'photo' in data:
+        photo_data = data['photo']
+        
+        # Guardar la foto temporalmente
+        temp_filename = 'temp_captured_image.png'
+        with open(temp_filename, 'wb') as f:
+            # Decodificar la cadena base64 y escribir en el archivo
+            f.write(base64.b64decode(photo_data.split(',')[1]))
+
+
+        # Realizar la predicción usando el código existente
+        hojas_predichas = predecir_hojas(temp_filename)
+
+        # Calcular similitudes y obtener las 2 especies de hojas más similares
+        similitudes = calcular_similitud(temp_filename)
+        indices_similares = np.argsort(similitudes)[::-1][:2]
+        hojas_similares = [Y_data[idx] for idx in indices_similares]
+
+        # Eliminar la foto temporal
+        os.remove(temp_filename)
+
+        return jsonify({'nombre_hojas': hojas_predichas, 'hojas_similares': hojas_similares})
+    else:
+        return jsonify({'error': 'No se proporcionó una foto válida.'})
+
+
 
 @app.route('/predict', methods=['POST'])
 def predict_hojas():
@@ -100,6 +179,8 @@ def predict_hojas():
     else:
         return jsonify({'error': 'No se proporcionó una imagen válida.'})
 
+
+##-------------------------------------------------------------
 # Clase PredictorHojas para la interfaz de PyQt5
 class PredictorHojas(QWidget):
     def __init__(self):

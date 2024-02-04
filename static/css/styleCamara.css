@@ -1,0 +1,53 @@
+h1{
+    font-family: 'Audiowide', sans-serif;
+}
+.font-effect-cam {
+    color: #007700; /* Cambia este código de color a tu verde oscuro deseado */
+     /* Establece la fuente Audiowide */
+    position: relative;
+    letter-spacing: 3px; 
+    
+  }
+
+  #container-files{
+    background-color: #f0f0f0a7; /* Cambia el color de fondo del contenedor principal */
+    padding: 10px; /* Agrega espaciado interno al contenedor */
+    border: 1px solid #ccc; /* Agrega un borde al contenedor */
+    width: auto;
+    max-width: 800px;
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    text-align: center;
+    margin-top: 50px;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/* Estilo para los recuadros con borde */
+.border {
+    border: 1px solid #343131; /* Agrega un borde a los recuadros con borde */
+    padding: 10px; /* Agrega espaciado interno a los recuadros con borde */
+    margin-bottom: 10px; /* Agrega espacio entre los recuadros con borde */
+}
+
+#results-camara{
+    font-family: 'Trirong',serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #207688;
+    text-shadow: 3px 3px 3px #ababab;
+    margin-top: 10px;
+}
+
+#camera-container {
+    width: 80%; /* Ajusta el porcentaje según tus preferencias */
+    padding-top: 75%; /* Relación de aspecto 4:3, ajusta según tus necesidades */
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+#camera-container video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

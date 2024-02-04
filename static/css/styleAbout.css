@@ -1,0 +1,17 @@
+.center-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+}
+
+h1 {
+    color: #007700; /* Cambia este código de color a tu verde oscuro deseado */
+    font-family: 'Audiowide', sans-serif; /* Establece la fuente Audiowide */
+    position: relative;
+    letter-spacing: 3px; 
+  }
+
