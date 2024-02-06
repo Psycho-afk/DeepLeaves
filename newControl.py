@@ -46,7 +46,8 @@ class_names = ['Borojo', 'Carambolo', 'Guanabano', 'Naranjo común', 'Palma de y
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
-    transforms.Lambda(lambda x: x[:3, :, :]),  # Eliminar el canal alfa (si existe)
+    transforms.Lambda(lambda x: x[:3, :, :]),  # Eliminar el canal alfa (si existe) esto se realiza, ya que
+    #la imagen que se captura desde la camara trae 4 canales y el modelo solo admite 3
 ])
 
 # Ruta relativa a la carpeta de imágenes
@@ -114,7 +115,8 @@ def predict_hojas(image_path):
 
         # Extraer características
         target_features = extract_features(img)
-        target_features = target_features[0]  # Tomar la primera fila del array NumPy
+        #target_features = target_features[0]  # Tomar la primera fila del array NumPy
+        target_features_flat = target_features.flatten().tolist()  # Convertir a lista plana
         print(f"Features extracted: {target_features}")
         print(f"Target features shape: {target_features.shape}")
         print(f"Features type: {type(target_features)}")
@@ -127,7 +129,7 @@ def predict_hojas(image_path):
             output = modelo(img)
             _, predicted_class = torch.max(output, 1)
 
-        return predicted_class.item(), target_features.tolist()
+        return predicted_class.item(), target_features_flat
 
     except Exception as e:
         error_message = f"Error en la predicción: {str(e)}"
@@ -153,7 +155,8 @@ def extract_features(img):
         if features.shape != (1, 5):
             raise ValueError(f"Dimensiones inesperadas de las características: {features.shape}")
 
-        return features.numpy()  # Devuelve las características como un arreglo numpy
+        #return features[0].numpy().tolist()  # Devuelve las características como una lista plana 
+        return features
 
     except Exception as e:
         print(f"Error al abrir o procesar la imagen: {str(e)}")
@@ -210,7 +213,7 @@ def extract_features(img):
 
 #funcion de prueba
 # Función para obtener las hojas más similares
-def get_similar_leaves(target_features_list, class_names, threshold=0.5):
+def get_similar_leaves(target_features, class_names, threshold=0.5):
       
     similar_leaves = []
 
@@ -228,16 +231,31 @@ def get_similar_leaves(target_features_list, class_names, threshold=0.5):
                 leaf_path = os.path.join(class_folder, filename)
                 print(f"Leaf path: {leaf_path}")
                 leaf_features = extract_features(leaf_path).flatten().tolist()
-                print("class name: ", class_name)
+                print("class name- primer if despues del for: ", class_name)
                 # Añadimos una verificación para las dimensiones de las características
-                if leaf_features.shape != (5,):
-                    raise ValueError(f"Dimensiones inesperadas de las características de la hoja {filename}: {leaf_features.shape}")
+                # if leaf_features.shape != (5,):
+                #     raise ValueError(f"Dimensiones inesperadas de las características de la hoja {filename}: {leaf_features.shape}")
 
-                # Calcular similitud coseno
-                similarity = cosine_similarity([target_features_list], [leaf_features])[0][0]
-                print("class name: ", class_name)
-                if similarity > threshold:
-                    similar_leaves.append({"class": class_name, "filename": filename, "similarity": similarity})
+                if len(leaf_features) != len(target_features):
+                    print(f"Dimensiones inesperadas de las características de la hoja {filename}")
+                    print(f"Target Features Shape: {len(target_features)}")
+                    print(f"Leaf Features Shape: {len(leaf_features)}")
+                    continue
+
+                print(f"Target Features: {target_features}")
+                print(f"Leaf Features: {leaf_features}")
+                
+
+                try:
+                    # Calcular similitud coseno
+                    #similarity = cosine_similarity([target_features], [leaf_features])[0][0]
+                    similarity = np.dot(target_features, leaf_features) / (np.linalg.norm(target_features) * np.linalg.norm(leaf_features))
+                    print(f"Similarity with {filename}: {similarity}")
+                    if similarity > threshold:
+                
+                        similar_leaves.append({"class": class_name, "filename": filename, "similarity": similarity})
+                except Exception as e:
+                    print(f"Error calculando la similitud: {str(e)}")
 
     return similar_leaves
 

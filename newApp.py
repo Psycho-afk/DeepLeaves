@@ -77,7 +77,7 @@ def predict_route():
         file.save(temp_file_path)
 
         #obtiene las caracteristicas
-        target_features = extract_features(temp_file_path)
+        #target_features = extract_features(temp_file_path)
         #Realizar predicción
         class_index,target_features_list = predict_hojas(temp_file_path)
         predicted_class_name = class_names[class_index]
@@ -96,14 +96,14 @@ def predict_route():
         #predicted_class_name = class_names[class_index]
 
         # Encuentra hojas similares
-        similar_leaves = get_similar_leaves(target_features, class_names)
+        #similar_leaves = get_similar_leaves(target_features, class_names)
         ##-----------------------------
 
         # Devolver resultados en formato JSON
         result = {
             "prediction": f"Predicción: Hoja predicha {predicted_class_name}",
             #"target_features": target_features.tolist(), # Convierte a lista para la respuesta JSON
-            #"similar_leaves": similar_leaves
+            "similar_leaves": similar_leaves
             #"debug_info": "similar_leaves defined" if similar_leaves else "similar_leaves is None"
         }
 
