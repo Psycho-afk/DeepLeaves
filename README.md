@@ -31,3 +31,6 @@ La aplicación cuenta con las siguientes rutas:
 - /red: Página de la red neuronal.
 
 Además, ofrece rutas para predecir hojas a partir de imágenes y capturar fotos para realizar predicciones.
+
+## Swagger
+Swagger se encuentra [http://localhost/api/docs](http://localhost/api/docs)

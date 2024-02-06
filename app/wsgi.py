@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import os
 import base64
-
+from flask_swagger_ui import get_swaggerui_blueprint
 from newControl import predict_hojas, get_similar_leaves,extract_features,class_names
 
 
@@ -13,6 +13,28 @@ from newControl import predict_hojas, get_similar_leaves,extract_features,class_
 # aplicacion flask
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 
+# SWAGGER
+SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
+API_URL = '/static/swagger.json'  # Our API url (can of course be a local resource)
+
+# Call factory function to create our blueprint
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
+    API_URL,
+    config={  # Swagger UI config overrides
+        'app_name': "Depp Leaves"
+    },
+    # oauth_config={  # OAuth config. See https://github.com/swagger-api/swagger-ui#oauth2-configuration .
+    #    'clientId': "your-client-id",
+    #    'clientSecret': "your-client-secret-if-required",
+    #    'realm': "your-realms",
+    #    'appName': "your-app-name",
+    #    'scopeSeparator': " ",
+    #    'additionalQueryStringParams': {'test': "hello"}
+    # }
+)
+
+app.register_blueprint(swaggerui_blueprint)
 
 @app.route("/favicon.ico")
 def favicon():
@@ -44,6 +66,24 @@ def redNeur():
 
 @app.route('/predict', methods=['POST'])
 def predict_route():
+    """
+    Endpoint para realizar predicciones de hojas.
+
+    ---
+    tags:
+      - Predicciones
+    responses:
+      200:
+        description: Predicción exitosa.
+        schema:
+          properties:
+            prediction:
+              type: string
+              description: Hoja predicha.
+            similar_leaves:
+              type: array
+              description: Lista de hojas similares.
+    """
     if 'file' not in request.files:
         return jsonify({"error": "No se ha proporcionado ninguna imagen."})
 

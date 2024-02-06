@@ -1,0 +1,106 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FlaskDeppLeaves API",
+    "description": "API para realizar predicciones de hojas",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/predict": {
+      "post": {
+        "tags": [
+          "Predicciones"
+        ],
+        "summary": "Realizar predicciones de hojas",
+        "description": "Sube una imagen de una hoja para obtener la predicción y hojas similares.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Imagen de la hoja a predecir."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Predicción exitosa.",
+            "schema": {
+              "properties": {
+                "prediction": {
+                  "type": "string",
+                  "description": "Hoja predicha."
+                },
+                "similar_leaves": {
+                  "type": "array",
+                  "description": "Lista de hojas similares."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/capturar_foto": {
+      "post": {
+        "tags": [
+          "Captura de Foto"
+        ],
+        "summary": "Capturar foto y realizar predicción",
+        "description": "Captura una foto, la procesa y realiza una predicción de hoja.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "photo": {
+                  "type": "string",
+                  "description": "Datos de la foto en formato base64."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Predicción exitosa.",
+            "schema": {
+              "properties": {
+                "prediction": {
+                  "type": "string",
+                  "description": "Hoja predicha."
+                },
+                "similar_leaves": {
+                  "type": "array",
+                  "description": "Lista de hojas similares."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Descripción del error."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
