@@ -28,7 +28,7 @@ function predict() {
 
             html += "</ul>";
         } else {
-            //html += "<p>No se encontraron hojas similares.</p>";
+            html += "<p>No se encontraron hojas similares.</p>";
         }
 
         resultsDiv.innerHTML = html;

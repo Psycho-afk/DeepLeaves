@@ -63,7 +63,7 @@ let stream;
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                // Manejar la respuesta del servidor según tus necesidades
+                // Manejar la respuesta del servidor 
                 const resultsDiv = document.getElementById('results-camara');
                 resultsDiv.innerHTML = `Predicción: ${data.prediction}`;
 
