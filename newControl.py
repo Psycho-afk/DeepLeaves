@@ -10,23 +10,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 
 
-#Nueva ruta de imagenes dentro del proyecto
-# images_folder = "static/static_images"
-# static_base_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static')
-# images_path = os.path.join(static_base_path, images_folder)
 
 images_folder = "static_images"
 images_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), images_folder)
-# image_absolute = os.path.abspath('F:\\Universidad\\FlaskIntro\\FlaskDeepLeaves\\static_images')
-# images_path = image_absolute
 
-
-
-print(f"Constructed path for images: {images_path}")
-
-
-# Más impresiones para identificar dónde se detiene la ejecución
-print("Antes del modelo")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -50,9 +37,7 @@ transform = transforms.Compose([
     #la imagen que se captura desde la camara trae 4 canales y el modelo solo admite 3
 ])
 
-# Ruta relativa a la carpeta de imágenes
-# image_absolute = os.path.abspath('F:/Universidad/ProyectoDeepleaves/ImagenesStatic')  
-# images_path = image_absolute
+
 
 
 
@@ -60,48 +45,7 @@ transform = transforms.Compose([
 # #------------------ mobielnetv2---------------------------------
 #--------------------------------------------
 
-
-
-# Función para extraer características de una imagen funcion original
-# def extract_features(img):
-
-#     try:
-#         print(f"Intentando extraer características de la imagen.")
-        
-#         if isinstance(img, str):  # Si es una ruta de archivo, abre la imagen
-#             img = Image.open(img)
-        
-#         img = transform(img)
-#         img = img.unsqueeze(0)
-
-#         with torch.no_grad():
-#             features = modelo(img)
-#             print(f"Features extracted: {features}")
-    
-#         return features.numpy().flatten()  # Devuelve las características como un arreglo numpy
-
-#     except Exception as e:
-#         print(f"Error al abrir o procesar la imagen: {str(e)}")
-#         raise
-
-# Función para realizar la predicción
-#Funcion original sin modificaciones que funciona    
-# def predict_hojas(image_path):
-#     print(f"Images path: {images_path}")
-
-#     img = Image.open(image_path)
-#     target_features = extract_features(img)  # Extrae características directamente desde la imagen
-#     img = transform(img)
-#     img = img.unsqueeze(0)
-
-#     with torch.no_grad():
-#         output = modelo(img)
-#         _, predicted_class = torch.max(output, 1)
-        
-
-#     return predicted_class.item(), target_features
-
-#--------------- funcion predict de prueba
+#--------------- funcion predictora de hojas
 def predict_hojas(image_path):
     print(f"Images path: {images_path}")
     constructed_path = os.path.join(images_path, image_path)
@@ -136,7 +80,7 @@ def predict_hojas(image_path):
         print(error_message)
         raise
 
-#funcion extraxt features prueba
+#funcion para extraer caracteristicas de la imagen
 def extract_features(img):
     try:
         print(f"Intentando extraer características de la imagen.")
@@ -155,8 +99,8 @@ def extract_features(img):
         if features.shape != (1, 5):
             raise ValueError(f"Dimensiones inesperadas de las características: {features.shape}")
 
-        #return features[0].numpy().tolist()  # Devuelve las características como una lista plana 
-        return features
+        
+        return features # retorna el tensor
 
     except Exception as e:
         print(f"Error al abrir o procesar la imagen: {str(e)}")
@@ -164,54 +108,6 @@ def extract_features(img):
 
 
 #-------------------------------------------------
-# Función para obtener las hojas más similares
-#funcion anterior
-# def get_similar_leaves(target_features,class_names, threshold=0.5):
-#     similar_leaves = []
-
-#     static_base_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static')
-
-#         # Verificar si el directorio 'static' existe
-#     if os.path.exists(static_base_path):
-#         print("Base static folder exists!")
-#     else:
-#         print("Base static folder does not exist!")
-
-#     print(f"Target Features: {target_features}")
-
-#     for class_name in class_names:
-
-#         class_folder = os.path.join(static_base_path, 'static_images', class_name)
-#         print(f"Class folder: {class_folder}")
-#         # Verificar si la carpeta existe
-#     if os.path.exists(class_folder):
-#         print(f"Class folder {class_name} exists!")
-#     else:
-#         print(f"Class folder {class_name} does not exist!")
-
-#         print(f"Constructed path for {class_name}: {class_folder}")    
-
-#         try:
-
-#             for filename in os.listdir(class_folder):
-#                 if filename.endswith(('.jpg', '.png', '.jpeg','.JPG')):
-#                     leaf_path = os.path.join(class_folder, filename)
-#                     leaf_features = extract_features(leaf_path)
-
-#                     # Calcular similitud coseno
-#                     similarity = cosine_similarity([target_features], [leaf_features])[0][0]
-#                     print(f"Leaf: {filename}, Similarity: {similarity}")
-
-#                     if similarity > threshold:
-#                         similar_leaves.append({"class": class_name, "filename": filename, "similarity": similarity})
-#                         print(f"Similar leaf found: {filename} in class {class_name} with similarity {similarity}")
-#         except Exception as e:  
-#              print(f"Error al acceder a la carpeta {class_folder}: {str(e)}")         
-#     return similar_leaves
-
-
-
-#funcion de prueba
 # Función para obtener las hojas más similares
 def get_similar_leaves(target_features, class_names, threshold=0.5):
       
@@ -232,10 +128,7 @@ def get_similar_leaves(target_features, class_names, threshold=0.5):
                 print(f"Leaf path: {leaf_path}")
                 leaf_features = extract_features(leaf_path).flatten().tolist()
                 print("class name- primer if despues del for: ", class_name)
-                # Añadimos una verificación para las dimensiones de las características
-                # if leaf_features.shape != (5,):
-                #     raise ValueError(f"Dimensiones inesperadas de las características de la hoja {filename}: {leaf_features.shape}")
-
+                
                 if len(leaf_features) != len(target_features):
                     print(f"Dimensiones inesperadas de las características de la hoja {filename}")
                     print(f"Target Features Shape: {len(target_features)}")
