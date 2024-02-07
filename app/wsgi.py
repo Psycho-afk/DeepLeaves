@@ -98,12 +98,11 @@ def predict_route():
         temp_file_path = "temp_image.jpg"
         file.save(temp_file_path)
 
-        #obtiene las caracteristicas
-        target_features = extract_features(temp_file_path)
+        
         #Realizar predicción
         class_index,target_features_list = predict_hojas(temp_file_path)
         predicted_class_name = class_names[class_index]
-        # Encontrar hojas similares
+       
         # Encontrar hojas similares
         similar_leaves = get_similar_leaves(target_features_list, class_names)
 
@@ -111,21 +110,14 @@ def predict_route():
         # Elimina el archivo temporal después de su uso
         os.remove(temp_file_path)
 
-        ###------ funciona 
-        #class_index, target_features = predict_hojas(file)
-
-        # Mapea el índice predicho al nombre de la hoja
-        #predicted_class_name = class_names[class_index]
-
-        # Encuentra hojas similares
-        similar_leaves = get_similar_leaves(target_features, class_names)
+        
         ##-----------------------------
 
         # Devolver resultados en formato JSON
         result = {
             "prediction": f"Predicción: Hoja predicha {predicted_class_name}",
             #"target_features": target_features.tolist(), # Convierte a lista para la respuesta JSON
-            #"similar_leaves": similar_leaves
+            "similar_leaves": similar_leaves
             #"debug_info": "similar_leaves defined" if similar_leaves else "similar_leaves is None"
         }
 
@@ -149,8 +141,7 @@ def capturar_foto():
         with open(temp_file_path, 'wb') as f:
             f.write(base64.b64decode(photo_data.split(",")[1]))
 
-        # Obtiene las características
-        target_features = extract_features(temp_file_path)
+        
 
         # Realiza la predicción
         class_index, target_features_list = predict_hojas(temp_file_path)
