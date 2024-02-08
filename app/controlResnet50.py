@@ -34,7 +34,8 @@ transform = transforms.Compose([
     transforms.ToImage(),
     transforms.Resize((224, 224)),
     transforms.ToDtype(torch.float32, scale=True),
-    transforms.Lambda(lambda x: x[:3, :, :]),  # Eliminar el canal alfa (si existe)
+    transforms.Lambda(lambda x: x[:3, :, :]),  # Eliminar el canal alfa (si existe), esto ya que la imagen
+    # que se captura por la camara tiene mas dimensiones de la esperada
 ])
 
 
