@@ -11,7 +11,7 @@ import numpy as np
 import os
 import base64
 
-from newControl import predict_hojas, get_similar_leaves,extract_features,class_names
+from controlResnet50 import predict_hojas, get_similar_leaves,extract_features,class_names
 
 
 #-----------------------------------------------------------------------------------------
