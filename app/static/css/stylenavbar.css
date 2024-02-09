@@ -1,11 +1,12 @@
 /* Estilo de la barra de navegación */
-.navbar {
-    background-color: #3a9e3a; /* Color de fondo */
+/* .navbar {
+    background-color: #3a9e3a; 
     z-index: 1;
-  }
+  } */
+  /* Color de fondo */
   
   .navbar-brand {
-    color: #fff; /* Color del texto del logotipo */
+    color: #238314; /* Color del texto del logotipo */
   }
   
   .navbar-nav .nav-link {
@@ -13,6 +14,11 @@
   }
   
   .navbar-toggler-icon {
-    background-color: #fff; /* Color del ícono del botón de menú desplegable */
+    background-color: #524c4c; /* Color del ícono del botón de menú desplegable */
   }
+
+/* Estilos para la navbar verde */
+.navbar-verde {
+  background-color: #3a9e3a; /* Cambia esto al color verde que prefieras */
+}  
   
