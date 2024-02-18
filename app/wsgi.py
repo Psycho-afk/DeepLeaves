@@ -2,12 +2,13 @@ import threading
 from flask import Flask, request, jsonify, render_template,send_from_directory 
 from PIL import Image  
 from sklearn.preprocessing import LabelEncoder
+import torch
+import torch.nn as nn
 import numpy as np
 import os
 import base64
 from flask_swagger_ui import get_swaggerui_blueprint
 from controlResnet50 import predict_hojas, get_similar_leaves,extract_features,class_names
-from controlMobileNetv1 import predict_hojas_mobileNetv1, get_similar_leaves_mobileNetv1, extract_features_mobileNetv1,class_names_mobileNetv1
 
 
 
@@ -44,10 +45,6 @@ def favicon():
 @app.route('/prediccion')
 def prediccion():
     return render_template('prediccion.html')
-
-@app.route('/prediccionMobileNetv1')
-def prediccion_mobile_netv1():
-    return render_template('prediccionMobilev1.html')
 
 @app.route('/redesNeu')
 def redesNeu():
@@ -167,68 +164,7 @@ def capturar_foto():
         return jsonify({"error": f"Error en la predicción: {str(e)}"})
 
 
-@app.route('/predictMobileNetv1', methods=['POST'])
-def predict_route_mobileNetv1():
-    """
-    Endpoint para realizar predicciones de hojas.
 
-    ---
-    tags:
-      - Predicciones
-    responses:
-      200:
-        description: Predicción exitosa.
-        schema:
-          properties:
-            prediction:
-              type: string
-              description: Hoja predicha.
-            similar_leaves:
-              type: array
-              description: Lista de hojas similares.
-    """
-    if 'file' not in request.files:
-        return jsonify({"error": "No se ha proporcionado ninguna imagen."})
-
-    file = request.files['file']
-
-    if file.filename == '':
-        return jsonify({"error": "No se ha seleccionado ninguna imagen."})
-
-    try:
-
-        # Guarda el archivo en una ubicación temporal
-        temp_file_path = "temp_image.jpg"
-        file.save(temp_file_path)
-
-        
-        #Realizar predicción
-        class_index,target_features_list = predict_hojas_mobileNetv1(temp_file_path)
-        predicted_class_name = class_names[class_index]
-       
-        # Encontrar hojas similares
-        similar_leaves = get_similar_leaves_mobileNetv1(target_features_list, class_names)
-
-
-        # Elimina el archivo temporal después de su uso
-        os.remove(temp_file_path)
-
-        
-        ##-----------------------------
-
-        # Devolver resultados en formato JSON
-        result = {
-            "prediction": f"Hoja predicha: {predicted_class_name}",
-            #"target_features": target_features.tolist(), # Convierte a lista para la respuesta JSON
-            "similar_leaves": similar_leaves
-            #"debug_info": "similar_leaves defined" if similar_leaves else "similar_leaves is None"
-        }
-
-        #print(result['similar_leaves'])
-        return jsonify(result)
-
-    except Exception as e:
-        return jsonify({"error": f"Error en la predicción: {str(e)}"})
 
 
 
