@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   app:
@@ -6,6 +6,25 @@ services:
       context: app
     ports:
       - "5000"
+    networks:
+      - my_network
+    environment:
+      MYSQL_HOST: mysql
+
+  mysql:
+    build: ./mysql/
+    restart: always
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3309:3306'
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
   nginx:
     image: nginx:latest
@@ -15,3 +34,9 @@ services:
       - app
     ports:
       - "80:80"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
