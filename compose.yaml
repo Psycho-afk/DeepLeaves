@@ -10,6 +10,8 @@ services:
       - my_network
     environment:
       MYSQL_HOST: mysql
+    volumes:
+      - app_data:/app/data
 
   mysql:
     build: ./mysql/
@@ -25,6 +27,8 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+    volumes:
+      - mysql_data:/var/lib/mysql
 
   nginx:
     image: nginx:latest
@@ -40,3 +44,7 @@ services:
 networks:
   my_network:
     driver: bridge
+
+volumes:
+  app_data:
+  mysql_data:
