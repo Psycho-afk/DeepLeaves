@@ -25,14 +25,17 @@
                 <h1 class="font-effect-neon">Sube una imagen de la planta</h1>
                 <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
                     <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="file" accept="image/*" required onchange="previewImage()">
-                            <label class="custom-file-label" for="customFile">Selecciona una Imagen</label>
+                        <div class="custom-file mx-auto">
+                            <input type="file" class="form-control" id="customFile" name="file" accept="image/*" required onchange="previewImage()">
+                            <!-- <label class="custom-file-label" for="customFile">Selecciona una Imagen</label> -->
                         </div>
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-success" onclick="predict()">Realizar Predicción</button>
-                        </div>
+                        
                     </div>
+
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-success" onclick="predict()">Realizar Predicción</button>
+                    </div>
+
                 </form>
 
                 <div id="image-preview-container" class="mt-3">
@@ -42,6 +45,18 @@
                 <div id="result-container">
                     
                     <div id="results" ></div>
+                </div>
+
+                <!-- Dentro de tu plantilla HTML existente -->
+                <div class="container mt-4">
+                    <h2>Búsqueda de Plantas</h2>
+                    <form action="{{ url_for('infoPl') }}" method="GET" class="form-inline mb-4">
+                        <div class="form-group">
+                            <label for="searchInput" class="sr-only">Buscar</label>
+                            <input type="text" class="form-control mr-2" id="searchInput" name="q" placeholder="Buscar plantas">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
                 </div>
 
             </div>
