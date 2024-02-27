@@ -64,6 +64,36 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+
+      <!--Busqueda en bd-->
+      <div class="container mt-4">
+        <h2>Resultados de Búsqueda</h2>
+        <p>Mostrando resultados para: "{{ termino_busqueda }}"</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <!-- Agrega más columnas según sea necesario -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for planta in resultados %}
+                    <tr>
+                        <td>{{ planta.id }}</td>
+                        <td>{{ planta.nombre }}</td>
+                        <td>{{ planta.descripcion }}</td>
+                        <!-- Agrega más columnas según sea necesario -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+      <!--Busqueda en bd-->
+
+
+
       <!--accordion-->
 
       <div class="accordion" id="accordionExample">
