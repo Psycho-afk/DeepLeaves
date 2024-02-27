@@ -3,6 +3,7 @@ import os
 import base64
 from flask_swagger_ui import get_swaggerui_blueprint
 from controlResnet50 import predict_hojas, get_similar_leaves,extract_features,class_names
+from controlDB import buscar_plantas
 import mysql.connector
 import time
 
@@ -34,25 +35,7 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 
 app.register_blueprint(swaggerui_blueprint)
 
-# MSQL
-max_retries = 10
-retry_delay = 3  # segundos
 
-def conectar_mysql():
-    for i in range(max_retries):
-        try:
-            connection = mysql.connector.connect(
-                user='root', password='root', host='mysql', port="3306", database='db')
-            print("Conexión a MySQL exitosa")
-            return connection
-        except mysql.connector.Error as e:
-            print(f"Error de conexión a MySQL: {e}")
-            print(f"Reintentando en {retry_delay} segundos...")
-            time.sleep(retry_delay)
-    print("No se pudo conectar a MySQL después de varios intentos")
-
-# Llama a la función conectar_mysql para establecer la conexión
-connection = conectar_mysql() # Ejemplo para conector
 
 
 
@@ -72,9 +55,12 @@ def redesNeu():
 def camara():
     return render_template('camara.html')
 
-@app.route('/infoPl')
+#busqueda de la db en la app para encontrar plantas
+@app.route('/infoPl', methods=['GET'])
 def infoPl():
-    return render_template('infoPl.html')
+    termino_busqueda = request.args.get('q', '')
+    resultados = buscar_plantas(termino_busqueda)
+    return render_template('infoPl.html',resultados=resultados, termino_busqueda=termino_busqueda)
 
 @app.route('/')
 def home():
@@ -186,5 +172,5 @@ def capturar_foto():
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
