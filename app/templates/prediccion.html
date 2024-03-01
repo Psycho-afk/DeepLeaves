@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success" onclick="predict()">Realizar Predicción</button>
+                        <button type="button" class="btn btn-success" onclick="predict()">Realizar Predicción 🔮</button>
                     </div>
 
                 </form>
@@ -47,15 +47,17 @@
                     <div id="results" ></div>
                 </div>
 
-                <!-- Dentro de tu plantilla HTML existente -->
+                <!-- Barra de busqueda para las plantas -->
                 <div class="container mt-4">
-                    <h2>Búsqueda de Plantas</h2>
+                    <h2 class="font-effect-neon">Búsqueda de Plantas</h2>
                     <form action="{{ url_for('infoPl') }}" method="GET" class="form-inline mb-4">
                         <div class="form-group">
-                            <label for="searchInput" class="sr-only">Buscar</label>
-                            <input type="text" class="form-control mr-2" id="searchInput" name="q" placeholder="Buscar plantas">
+                            <label for="searchInput" class="sr-only font-effect-neon">Buscar</label>
+                            <input type="text" class="form-control " id="searchInput" name="q" placeholder="Buscar plantas">
                         </div>
-                        <button type="submit" class="btn btn-primary">Buscar</button>
+                        
+                            <button type="submit" class="btn btn-success btn-search">Buscar planta 🔍</button>
+                        
                     </form>
                 </div>
 
