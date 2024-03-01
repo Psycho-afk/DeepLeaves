@@ -1,4 +1,4 @@
-h1{
+h1,h2{
     font-family: 'Audiowide', sans-serif;
 }
 .font-effect-cam {
@@ -28,10 +28,10 @@ h1{
 }
 
 #results-camara{
-    font-family: 'Trirong',serif;
+    font-family: 'Audiowide', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    color: #207688;
+    color: #007700;
     text-shadow: 3px 3px 3px #ababab;
     margin-top: 10px;
 }
