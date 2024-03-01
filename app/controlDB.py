@@ -27,15 +27,29 @@ def buscar_plantas(termino_busqueda):
     connection = conectar_mysql()
     cursor = connection.cursor(dictionary=True)
 
-    # Realiza la búsqueda de plantas por nombre
-    query = "SELECT * FROM plantas WHERE nombre LIKE %s"
+    # Realiza la búsqueda de plantas por nombre con paginación
+    
+    query = "SELECT * FROM plantas WHERE nombre LIKE %s "
     cursor.execute(query, (f"%{termino_busqueda}%",))
 
     # Obtiene los resultados de la búsqueda
     resultados = cursor.fetchall()
+
+    # Obtiene el total de resultados para configurar la paginación
+    # query_paginacion = "SELECT COUNT(*) AS total FROM plantas WHERE nombre LIKE %s "
+    # cursor.execute(query_paginacion,(f"%{termino_busqueda}%",))
+    # total = cursor.fetchone()['total']
+
+    # # Imprime las consultas SQL generadas (para depuración)
+    # print(f"Query de búsqueda: {cursor.statement}")
+    # print(f"Query de paginación: {query_paginacion}")
+
 
     # Cierra la conexión a la base de datos
     cursor.close()
     connection.close()
 
     return resultados
+
+
+
