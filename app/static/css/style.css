@@ -6,7 +6,7 @@
     padding: 0;
 } */
 
-h1{
+h1, h2{
     font-family: 'Audiowide', sans-serif;
 }
 .font-effect-neon {
@@ -18,10 +18,10 @@ h1{
   }
 
 #results{
-    font-family: 'Trirong',serif;
+    font-family: 'Audiowide', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    color: #207688;
+    color: #007700;
     text-shadow: 3px 3px 3px #ababab;
     margin-top: 10px;
 }
@@ -62,6 +62,10 @@ h1{
     /*background-color: rgba(255, 255, 255, 0.807);*/
     padding: 20px;
     border-radius: 10px;
+}
+
+.btn-search{
+    margin-left: 10px; /* Ajusta el valor según sea necesario */
 }
 
 /*
