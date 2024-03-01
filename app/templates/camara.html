@@ -33,6 +33,18 @@
                 <div id="results-camara" ></div>
             </div> 
 
+            <!-- Barra de busqueda para las plantas -->
+            <div class="container mt-4">
+                <h2 class="font-effect-cam">Búsqueda de Plantas</h2>
+                <form action="{{ url_for('infoPl') }}" method="GET" class="form-inline mb-4">
+                    <div class="form-group">
+                        <label for="searchInput" class="sr-only font-effect-cam">Buscar</label>
+                        <input type="text" class="form-control mr-2" id="searchInput" name="q" placeholder="Buscar plantas">
+                    </div>
+                    <button type="submit" class="btn btn-success">Buscar planta 🔍</button>
+                </form>
+            </div>
+
         </div>
         
 
