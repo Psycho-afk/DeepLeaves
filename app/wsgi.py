@@ -4,8 +4,7 @@ import base64
 from flask_swagger_ui import get_swaggerui_blueprint
 from controlResnet50 import predict_hojas, get_similar_leaves,extract_features,class_names
 from controlDB import buscar_plantas
-import mysql.connector
-import time
+
 
 
 
@@ -58,13 +57,23 @@ def camara():
 #busqueda de la db en la app para encontrar plantas
 @app.route('/infoPl', methods=['GET'])
 def infoPl():
-    termino_busqueda = request.args.get('q', '')
+    termino_busqueda = request.args.get('q', default='', type=str)
+    
+    # Llama a la función de búsqueda con paginación
     resultados = buscar_plantas(termino_busqueda)
-    return render_template('infoPl.html',resultados=resultados, termino_busqueda=termino_busqueda)
+
+    # Imprime los resultados y el total para depuración
+    # print(f"Resultados: {resultados}")
+    # print(f"Total: {total}")
+
+    # Configura la paginación solo si hay resultados
+    #pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap5',search=True, record_name='resultados') if resultados else None
+    return render_template('infoPl.html', resultados=resultados, termino_busqueda=termino_busqueda)
 
 @app.route('/')
 def home():
     return render_template('/home.html')
+
 
 
 @app.route('/predict', methods=['POST'])
@@ -118,7 +127,7 @@ def predict_route():
 
         # Devolver resultados en formato JSON
         result = {
-            "prediction": f"Predicción: Hoja predicha {predicted_class_name}",
+            "prediction": f"Hoja predicha: {predicted_class_name}",
             #"target_features": target_features.tolist(), # Convierte a lista para la respuesta JSON
             "similar_leaves": similar_leaves
             #"debug_info": "similar_leaves defined" if similar_leaves else "similar_leaves is None"
