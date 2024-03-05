@@ -23,7 +23,7 @@ function predict() {
             html += "<p>Hojas similares:</p><ul>";
 
             for (var i = 0; i < similarLeaves.length; i++) {
-                html += "<li>" + similarLeaves[i].class + " - " + similarLeaves[i].filename + " (Similitud: " + similarLeaves[i].similarity.toFixed(2) + ")</li>";
+                html += "<li>" + similarLeaves[i].class + " (Similitud: " + similarLeaves[i].similarity.toFixed(2) + ")</li>";
             }
 
             html += "</ul>";
