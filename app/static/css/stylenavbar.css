@@ -6,17 +6,41 @@
   /* Color de fondo */
   
   .navbar-brand {
-    color: #238314; /* Color del texto del logotipo */
-  }
-  
-  .navbar-nav .nav-link {
-    color: #fff; /* Color de los enlaces en la barra de navegación */
-  }
-  
-  .navbar-toggler-icon {
-    background-color: #524c4c; /* Color del ícono del botón de menú desplegable */
+    color: #3a9e3a; /* Color del texto del logotipo */
   }
 
+  .offcanvas-green .offcanvas{
+
+    width: 50%;
+
+  }
+  .offcanvas-green .offcanvas-body {
+    background-color: #3a9e3a;
+   
+}
+/* 
+  @media (max-width: 767.98px) {
+    .navbar-nav {
+      flex-direction: column !important;
+    }
+    .navbar-nav .nav-item {
+      margin-right: 0.5rem;
+     
+    }
+  }
+   */
+
+  /* Color de los enlaces en la barra de navegación */
+  .navbar-nav .nav-link {
+    color: #fff; 
+  }
+  
+/*   
+  .navbar-toggler-icon {
+    background-color: #605b5b; 
+  }
+
+   */
 /* Estilos para la navbar verde */
 .navbar-verde {
   background-color: #3a9e3a; /* Cambia esto al color verde que prefieras */

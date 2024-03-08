@@ -6,7 +6,7 @@
     padding: 0;
 } */
 
-h1{
+h1, h2{
     font-family: 'Audiowide', sans-serif;
 }
 .font-effect-neon {
@@ -18,10 +18,10 @@ h1{
   }
 
 #results{
-    font-family: 'Trirong',serif;
+    font-family: 'Audiowide', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    color: #207688;
+    color: #007700;
     text-shadow: 3px 3px 3px #ababab;
     margin-top: 10px;
 }
@@ -63,22 +63,22 @@ h1{
     padding: 20px;
     border-radius: 10px;
 }
+
+.btn-search{
+    margin-left: 10px; /* Ajusta el valor según sea necesario */
+}
+
+/*
+--------------------------------------------------
+*/
 #hojas-image {
     max-width: 300px;
     max-height: 300px;
     margin: 0 auto;
     display: block;
 }
-#hojas-name {
-    font-size: 24px;
-    font-weight: bold;
-    color: #007bff;
-    margin-top: 10px;
-}
-#similar-hojas {
-    font-size: 18px;
-    margin-top: 10px;
-}
+
+
 
 /*
 input[type="file"] {
@@ -105,11 +105,11 @@ label:hover {
     margin-top: 10px;
 }
 
-.custom-file-input {
+/* .form-control-input {
     cursor: pointer;
-}
+} */
 
-.label-custom-file-input {
+/* .label-custom-file-input {
     display: block;
     background-color: #007bff;
     color: #fff;
@@ -122,4 +122,4 @@ label:hover {
 
 .label-custom-file-input:hover {
     background-color: #0056b3;
-}
+} */

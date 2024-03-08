@@ -138,6 +138,7 @@ def get_similar_leaves(target_features, class_names, threshold=0.5):
                     #similarity = cosine_similarity([target_features], [leaf_features])[0][0]
                     similarity = np.dot(target_features, leaf_features) / (np.linalg.norm(target_features) * np.linalg.norm(leaf_features))
                     print(f"Similarity with {filename}: {similarity}")
+                    # solo utilizar el resultado mas acertado, para el calculo de la similitud
                     if similarity > threshold:
                 
                         similar_leaves.append({"class": class_name, "filename": filename, "similarity": similarity})
