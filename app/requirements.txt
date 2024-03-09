@@ -35,7 +35,8 @@
 ##executing==0.8.3
 fastjsonschema==2.16.2
 filelock==3.13.1
-Flask==3.0.1
+Flask==3.0.1 # version actual de flask
+#Flask==2.3.1 # version de prueba para paginacion- version estable para trabajar con la version de paginacion
 flatbuffers==23.5.26
 #fonttools==4.25.0
 frozenlist==1.4.0
