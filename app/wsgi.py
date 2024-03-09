@@ -10,6 +10,7 @@ from controlDB import buscar_plantas
 
 # aplicacion flask
 app = Flask(__name__, static_folder='static', static_url_path='/static')
+app.config['JSON_AS_ASCII'] = False # permite caracteres no ascii en respuesta json
 
 # SWAGGER
 SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
@@ -62,6 +63,7 @@ def infoPl():
     # Llama a la función de búsqueda con paginación
     resultados = buscar_plantas(termino_busqueda)
 
+    
     # Imprime los resultados y el total para depuración
     # print(f"Resultados: {resultados}")
     # print(f"Total: {total}")
