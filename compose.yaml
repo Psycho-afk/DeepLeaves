@@ -42,7 +42,7 @@ services:
     build: 
       context: app
     container_name: python-server
-    command: flask run --host=0.0.0.0 --port=5000 --reload 
+    command: python wsgi.py --host=0.0.0.0 --port=5000 --reload 
     ports:
       - "5000:5000"
     depends_on:
@@ -61,6 +61,8 @@ services:
     environment:
       MYSQL_DATABASE: 'db'
       MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_CHARSET: 'utf8mb4' # caracteres especiales
+      MYSQL_COLLATION: 'utf8mb4_unicode_ci'
     ports:
       - '3306:3306'
     volumes:
