@@ -24,37 +24,62 @@
 
       <h1 class="font-effect-neon">Buscador de plantas</h1>
       <div id="carouselFade" class="carousel slide carousel-fade carousel-dark" >
+
         <div class="carousel-inner">
+
+          <!-- 
+          {% for planta in resultados %}
+          <div class="carousel-item {% if loop.first %}active{% endif %}">
+            
+            <img src="{{ planta.img_arbol }}" class="img-fluid" alt="{{ planta.nombre }}"
+              referrerpolicy="no-referrer" title="source: imgur.com" style="width: 150px; height: 200px;">
+
+            <div class="carousel-caption d-none d-md-block">
+              <h5>{{ planta.nombre }}</h5>
+            </div>
+          </div>
+          {% endfor %} -->
+
+          
           <div class="carousel-item active" >
-            <img src="{{ url_for('static', filename='images/Carambolo.jpg') }}" class="img-fluid" alt="Carambolo">
+            <img src="https://i.imgur.com/kCtnJRm.jpg" class="img-fluid" alt="Carambolo"
+            referrerpolicy="no-referrer" title="source: imgur.com" style="width: 150px; height: 200px;">
             <div class="carousel-caption d-none d-md-block">
               <h5>Carambolo</h5>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="{{ url_for('static', filename='images/Borojo.jpg') }}" class="img-fluid" alt="Borojo">
+            <img src="https://i.imgur.com/AZhTH37.jpg" class="img-fluid" alt="Borojo"
+            referrerpolicy="no-referrer" title="source: imgur.com" style="width: 150px; height: 200px;">
             <div class="carousel-caption d-none d-md-block">
               <h5>Borojo</h5>
             </div>
           </div>
           <div class="carousel-item" >
-            <img src="{{ url_for('static', filename='images/Guanabano.jpg') }}" class="img-fluid" alt="Guanabano">
+            <img src="https://i.imgur.com/QK5zxgC.jpg" class="img-fluid" alt="Guanabano"
+            referrerpolicy="no-referrer" title="source: imgur.com" style="width: 150px; height: 200px;">
             <div class="carousel-caption d-none d-md-block">
               <h5>Guanabano</h5>
             </div>
           </div>
           <div class="carousel-item" >
-            <img src="{{ url_for('static', filename='images/Naranjo comun.jpg') }}" class="img-fluid" alt="Naranjo comun">
+            <img src="https://i.imgur.com/x0rv73Y.jpg" class="img-fluid" alt="Naranjo comun"
+            referrerpolicy="no-referrer" title="source: imgur.com" style="width: 150px; height: 200px;">
             <div class="carousel-caption d-none d-md-block">
               <h5>Naranjo común</h5>
             </div>
           </div>
           <div class="carousel-item" >
-            <img src="{{ url_for('static', filename='images/Uva de playa.jpg') }}" class="img-fluid" alt="Palma de yuca">
+            <img src="https://i.imgur.com/2ItfjTx.jpg" class="img-fluid" alt="Palma de yuca" 
+            referrerpolicy="no-referrer" title="source: imgur.com" style="width: 150px; height: 200px;">
             <div class="carousel-caption d-none d-md-block">
               <h5>Palma de yuca</h5>
             </div>
           </div>
+
+
+
+
         </div>
 
         <button class="carousel-control-prev text-dark" type="button" data-bs-target="#carouselFade" data-bs-slide="prev" data-bs-theme="dark">
@@ -92,7 +117,7 @@
                 <img src="{{planta.img_hoja}}" referrerpolicy="no-referrer" title="source: imgur.com" style="width: 350px; height: 400px;"/>
               
                 
-                <p>
+                <p class="descripcion-texto">
                   {{planta.descripcion}}
                 </p>
               </div>
