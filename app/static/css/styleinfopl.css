@@ -80,4 +80,15 @@ h5{
   letter-spacing: 3px; 
 }  
 
+.carousel-caption h5{
+
+  font-size: 1.5em;
+
+}
+
+.descripcion-texto{
+  text-align: justify;
+  
+}
+
 
