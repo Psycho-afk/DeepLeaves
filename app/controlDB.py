@@ -9,7 +9,15 @@ def conectar_mysql():
     for i in range(max_retries):
         try:
             connection = mysql.connector.connect(
-                user='root', password='root', host='mysql', port="3306", database='db')
+                user='root', 
+                password='root', 
+                host='mysql', 
+                port="3306", 
+                database='db',
+                charset='utf8mb4', # definicion de caracteres
+                collation='utf8mb4_unicode_ci'#definicion para caracteres especiales
+                ) 
+            
             print("Conexión a MySQL exitosa")
             return connection
         except mysql.connector.Error as e:
