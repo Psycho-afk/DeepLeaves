@@ -21,7 +21,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 modelo = resnet50(weights=None)
 num_ftrs = modelo.fc.in_features
 modelo.fc = nn.Linear(num_ftrs, 5) # ajustar el numero de clases si es necesario con el conjunto de datos
-modelo_resnet50 ='./Modelos/resnet50.pth' # modelo del 22/01/2024
+modelo_resnet50 ='./Modelos/resnet50_best2.pth' # modelo del 22/01/2024
 modelo.load_state_dict(torch.load(modelo_resnet50,map_location=torch.device('cpu')))
 modelo = modelo.to(device)
 modelo.eval()
