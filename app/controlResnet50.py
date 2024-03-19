@@ -32,7 +32,8 @@ class_names = ['Borojo', 'Carambolo', 'Guanabano', 'Naranjo común', 'Palma de y
 # Transformaciones para las imágenes
 transform = transforms.Compose([
     transforms.ToImage(),
-    transforms.Resize((224, 224)),
+    transforms.Resize(256, antialias=True),
+    transforms.CenterCrop(224),         # Recortar al centro 224x224
     transforms.ToDtype(torch.float32, scale=True),
     transforms.Lambda(lambda x: x[:3, :, :]),  # Eliminar el canal alfa (si existe), esto ya que la imagen
     # que se captura por la camara tiene mas dimensiones de la esperada
@@ -121,7 +122,7 @@ def get_similar_leaves(target_features, class_names, threshold=0.5):
                 leaf_path = os.path.join(class_folder, filename)
                 print(f"Leaf path: {leaf_path}")
                 leaf_features = extract_features(leaf_path).flatten().tolist()
-                print("class name- primer if despues del for: ", class_name)
+                
                 
                 if len(leaf_features) != len(target_features):
                     print(f"Dimensiones inesperadas de las características de la hoja {filename}")
@@ -129,8 +130,7 @@ def get_similar_leaves(target_features, class_names, threshold=0.5):
                     print(f"Leaf Features Shape: {len(leaf_features)}")
                     continue
 
-                print(f"Target Features: {target_features}")
-                print(f"Leaf Features: {leaf_features}")
+                
                 
 
                 try:
