@@ -8,12 +8,12 @@ Para ejecutar la aplicación usando Docker, sigue estos pasos:
 2. Ejecuta el siguiente comando para construir y ejecutar la aplicación:
 
     ```bash
-    docker-compose up -d --build --scale app=1
+    docker-compose up
     ```
 
-    Donde `app=1` es el número de instancias de la aplicación que deseas ejecutar.
+    
 
-3. La aplicación estará disponible en [http://localhost](http://localhost).
+3. La aplicación estará disponible en [http://127.0.0.1:5000](http://127.0.0.1:5000/).
 
 ## Detener la Aplicación Docker
 
