@@ -21,16 +21,13 @@ Luego, ejecuta la aplicación con:
 python wsgi.py
 ```
 ## Funcionalidades
-La aplicación cuenta con las siguientes rutas:
+La aplicación cuenta con las siguientes funciones:
 
-- /index: Página de inicio.
-- /home: Página principal.
-- /camara: Página de la cámara.
-- /infoPl: Página de información de plantas.
-- /: Página "about".
-- /red: Página de la red neuronal.
+- home: Página principal.
+- cámara: Página de la cámara solo para desktop .
+- predicción: Página de predicción para subir imágenes o tomar fotos.
+- Búsqueda: Página de búsqueda de plantas en la base de datos
 
-Además, ofrece rutas para predecir hojas a partir de imágenes y capturar fotos para realizar predicciones.
 
 ## Swagger
 Swagger se encuentra [http://localhost/api/docs](http://localhost/api/docs)
