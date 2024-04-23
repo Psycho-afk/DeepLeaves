@@ -21,8 +21,58 @@
 
         <div class="center-container">
             <h1 id="font-effect">Bienvenidos a nuestro sitio web!</h1>
+
+             <!-- Botón para activar el modal -->
+             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Instructivo
+            </button>
+
+        </div>     
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Instructivo de la app</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Aquí puedes colocar tu texto -->
+                            <p>Aquí puedes realizar predicciones sobre diferentes tipos de plantas. Sigue estos pasos para empezar:</p>
+                            <ol>
+                                <li>Para empezar utilizando las funcionalidades de la aplicación debes usar el menú que se encuentra 
+                                    en la esquina superior derecha para ver las diferentes opciones </li>
+                                <!-- <a href="javascript:void(0);" class="nav-toggle" onclick="toggleNavbar()">Mostrar Menú</a> -->
+                                <li>Selecciona "Buscador de plantas" en el menú de navegación para encontrar información detallada sobre diferentes plantas como el borojo, carambolo, palma de yuca, guanabano y naranjo común.</li>
+                                <li>Sube una imagen de una planta utilizando el botón "Sube una imagen de la planta" para realizar una predicción sobre su tipo.</li>
+                                <li>Espera unos momentos mientras el sistema procesa la imagen y te muestra los resultados de la predicción.</li>
+                                <li>Utiliza la barra de búsqueda para encontrar información específica sobre las plantas que te interesan.</li>
+                            </ol>
+                            <p>¡Explora las funcionalidades de nuestra aplicación y disfruta aprendiendo sobre diferentes tipos de plantas!</p>
+
+                            <!-- Puedes agregar más párrafos según sea necesario -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <!-- Puedes agregar más botones de acción aquí si lo deseas -->
+                        </div>
+                    </div>
+                </div>
+            </div>    
+
+       
+        
+                
+
+
+            <!---->
+
             
-        </div>   
+         
+
+        <script type="text/javascript" src="{{url_for ('static', filename = 'script/scriptNavBar.js' ) }}"></script>  
             
     </div>
 

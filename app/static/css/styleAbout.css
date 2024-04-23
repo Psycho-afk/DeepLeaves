@@ -15,3 +15,16 @@ h1 {
     letter-spacing: 3px; 
   }
 
+/* Estilo para el contenedor principal */
+#container-principal {
+    background-color: #f0f0f0a7; /* Cambia el color de fondo del contenedor principal */
+    padding: 10px; /* Agrega espaciado interno al contenedor */
+    border: 1px solid #ccc; /* Agrega un borde al contenedor */
+    width: auto;
+    max-width: 800px;
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    text-align: center;
+    margin-top: 50px;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }  
+
