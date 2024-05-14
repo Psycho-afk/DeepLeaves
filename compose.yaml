@@ -1,41 +1,6 @@
-# services:
-#   app:
-#     build:
-#       context: app
-#     ports:
-#       - "5000:5000"
-#     depends_on:
-#       - mysql
-#     environment:
-#       MYSQL_HOST: mysql
-#     volumes:
-#       - app_data:/app/data
-
-#   mysql:
-#     build: ./mysql/
-#     restart: always
-#     environment:
-#       MYSQL_DATABASE: 'db'
-#       MYSQL_ROOT_PASSWORD: 'root'
-#     ports:
-#       - '3306:3306'
-#     volumes:
-#       - mysql_data:/var/lib/mysql
-
-#   nginx:
-#     image: nginx:latest
-#     volumes:
-#       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-#     depends_on:
-#       - app
-#     ports:
-#       - "80:80"
-
-# volumes:
-#   app_data:
-#   mysql_data:
-
 #-- dev compose
+
+version: '3'
 
 services:
   app:
@@ -46,35 +11,25 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - mysql
+      - mongodb
     environment:
-      MYSQL_HOST: mysql
+      MONGO_URL: mongodb://mongodb:27017/bd_plantas
     volumes:
       - ./app:/app
     stdin_open: true
     tty: true
-  
 
-  mysql:
-    build: ./mysql/
+  mongodb:
+    image: mongo
     restart: always
-    environment:
-      MYSQL_DATABASE: 'db'
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_CHARSET: 'utf8mb4' # caracteres especiales
-      MYSQL_COLLATION: 'utf8mb4_unicode_ci'
     ports:
-      - '3306:3306'
+      - "27017:27017"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mongodb_data:/data/db
 
 volumes:
-  mysql_data:
+  mongodb_data:
 
 
-#------
 
-
-#-- compose test--
-# version: '3'
 
