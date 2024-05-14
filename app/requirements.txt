@@ -54,3 +54,6 @@ torch==2.1.1
 torchvision==0.16.1
 flask-swagger-ui==4.11.1
 mysql-connector-python
+#mongo
+pymongo==4.2.0
+bcrypt==3.2.2
