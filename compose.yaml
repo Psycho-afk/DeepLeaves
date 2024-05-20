@@ -20,7 +20,9 @@ services:
     tty: true
 
   mongodb:
-    image: mongo
+    build:
+      context: ./mongo 
+    container_name: mongodb  
     restart: always
     ports:
       - "27017:27017"
