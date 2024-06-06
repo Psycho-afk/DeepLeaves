@@ -107,6 +107,7 @@ def extract_features(img):
 def get_similar_leaves(target_features, class_names, threshold=0.5):
       
     similar_leaves = []
+    most_similar_leaf = {"class": None, "filename": None, "similarity": 0.0}
 
     for class_name in class_names:
         class_folder = os.path.join(images_path, class_name)
@@ -139,13 +140,16 @@ def get_similar_leaves(target_features, class_names, threshold=0.5):
                     similarity = np.dot(target_features, leaf_features) / (np.linalg.norm(target_features) * np.linalg.norm(leaf_features))
                     print(f"Similarity with {filename}: {similarity}")
                     # solo utilizar el resultado mas acertado, para el calculo de la similitud
-                    if similarity > threshold:
+                    if similarity > threshold and similarity > most_similar_leaf["similarity"]:
+                        most_similar_leaf = {"class": class_name, "filename": filename, "similarity": similarity}
                 
-                        similar_leaves.append({"class": class_name, "filename": filename, "similarity": similarity})
+                        #similar_leaves.append({"class": class_name, "filename": filename, "similarity": similarity})
+                        
                 except Exception as e:
                     print(f"Error calculando la similitud: {str(e)}")
+    print(f"Hoja más similar -> {most_similar_leaf['filename']}: {most_similar_leaf['similarity']}")              
 
-    return similar_leaves
+    return most_similar_leaf
 
 
 

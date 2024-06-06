@@ -1,32 +1,27 @@
-
-var progressBar = document.getElementById('progress-bar')
+var progressBar = document.getElementById('progress-bar');
 var predictButton = document.querySelector('button.btn-success');
 
-function mostrarResultados(results){
+function mostrarResultados(results) {
+    console.log("Resultados recibidos:", results);
     var resultsDiv = document.getElementById('results');
     var prediction = results.prediction;
-    var similarLeaves = results.similar_leaves;
+    var similarLeaf = results.similar_leaf;  // Cambiado para manejar un solo resultado
 
     var html = "<p>" + prediction + "</p>";
 
-    if (similarLeaves && Array.isArray(similarLeaves) && similarLeaves.length > 0) {
-        html += "<p>Hojas similares:</p><ul>";
-
-        for (var i = 0; i < similarLeaves.length; i++) {
-            html += "<li>" + similarLeaves[i].class + " (Similitud: " + similarLeaves[i].similarity.toFixed(2) + ")</li>";
-        }
-
+    if (similarLeaf && similarLeaf.class) {
+        html += "<p>Hoja más similar:</p><ul>";
+        html += "<li>" + similarLeaf.class + " (Similitud: " + similarLeaf.similarity.toFixed(2) + ")</li>";
         html += "</ul>";
     } else {
         html += "<p>No se encontraron hojas similares.</p>";
     }
 
     resultsDiv.innerHTML = html; 
-
 }
 
 function predict() {
-    // oculta la barra de progreso y deshabilita el boton
+    // Ocultar la barra de progreso y deshabilitar el botón
     progressBar.style.display = 'block';
     predictButton.disabled = true;
 
@@ -38,11 +33,10 @@ function predict() {
         body: formData
     })
     .then(response => {
-
-        // Establece el ancho de la barra de progreso al 100%
+        // Establecer el ancho de la barra de progreso al 100%
         progressBar.querySelector('.progress-bar').style.width = '100%';
 
-        // se oculta la barra de progreso
+        // Ocultar la barra de progreso
         progressBar.style.display = 'none';
 
         if (!response.ok) {
@@ -51,18 +45,17 @@ function predict() {
         return response.json();
     })
     .then(results => {
-
-        // muestra los resultados
+        // Mostrar los resultados
         mostrarResultados(results);
 
-        // habilita el boton despues de recibir una respuesta
+        // Habilitar el botón después de recibir una respuesta
         predictButton.disabled = false;
     })
     .catch(error => {
-        // oculta la barra de progreso
+        // Ocultar la barra de progreso
         progressBar.style.display = 'none';
 
-        //habilitar el boton en caso de error
+        // Habilitar el botón en caso de error
         predictButton.disabled = false;
 
         console.error("Error:", error);
