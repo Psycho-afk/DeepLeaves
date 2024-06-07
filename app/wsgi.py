@@ -64,12 +64,7 @@ def infoPl():
     resultados = buscar_plantas(termino_busqueda)
 
     
-    # Imprime los resultados y el total para depuración
-    # print(f"Resultados: {resultados}")
-    # print(f"Total: {total}")
-
-    # Configura la paginación solo si hay resultados
-    #pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap5',search=True, record_name='resultados') if resultados else None
+    
     return render_template('infoPl.html', resultados=resultados, termino_busqueda=termino_busqueda)
 
 @app.route('/')
@@ -118,7 +113,7 @@ def predict_route():
         predicted_class_name = class_names[class_index]
        
         # Encontrar hojas similares
-        similar_leaves = get_similar_leaves(target_features_list, class_names)
+        most_similar_leaf = get_similar_leaves(target_features_list, class_names)
 
 
         # Elimina el archivo temporal después de su uso
@@ -131,7 +126,7 @@ def predict_route():
         result = {
             "prediction": f"Hoja predicha: {predicted_class_name}",
             #"target_features": target_features.tolist(), # Convierte a lista para la respuesta JSON
-            "similar_leaves": similar_leaves
+            "similar_leaf": most_similar_leaf
             #"debug_info": "similar_leaves defined" if similar_leaves else "similar_leaves is None"
         }
 

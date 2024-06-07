@@ -29,5 +29,31 @@ La aplicación cuenta con las siguientes funciones:
 - Búsqueda: Página de búsqueda de plantas en la base de datos
 
 
+## MongoDB
+
+Para poner en marcha la base de datos de este proyecto en docker, sigue los pasos descritos a continuación:
+
+1. Acceso al Contenedor de MongoDB
+Primero, debes acceder al contenedor de MongoDB. Utiliza el siguiente comando para abrir una terminal dentro del contenedor:
+
+```bash
+docker exec -it mongdb /bin/sh
+```
+2. Copia del Archivo de la Base de Datos
+A continuación, necesitas copiar el archivo de la base de datos desde tu máquina local al contenedor de MongoDB. Para ello, ejecuta el siguiente comando, reemplazando "Ruta relativa donde se encuentra la bd" por la ruta correcta en tu sistema:
+
+```bash
+docker cp "Ruta relativa donde se encuentra la bd dentro de la maquina"/database_pl.js mongodb:/database_pl.js
+```
+
+3. Ejecución del Script de la Base de Datos
+Una vez que el archivo database_pl.js esté dentro del contenedor, puedes ejecutar el script dentro de la base de datos de mongo para levantar la base de datos. Desde la terminal dentro del contenedor de MongoDB, corre el siguiente comando:
+
+```bash
+load("/database_pl.js");
+```
+
+
+
 ## Swagger
 Swagger se encuentra [http://localhost/api/docs](http://localhost/api/docs)
